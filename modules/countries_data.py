@@ -9,7 +9,7 @@ from countryinfo import CountryInfo
 
 def country_map(dataframe):
 
-    m = folium.Map(location=[dataframe['latitude'].mean(), dataframe['longitude'].mean()], tiles="Stamen Toner", zoom_start=4)
+    m = folium.Map(location=[dataframe['latitude'].mean(), dataframe['longitude'].mean()], tiles="https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.png", attr='&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a>', zoom_start=4)
 
     for index, line in dataframe.iterrows():
         folium.Circle(
