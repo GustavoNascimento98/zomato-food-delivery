@@ -6,10 +6,12 @@ from streamlit_folium import folium_static
 from folium.plugins import MarkerCluster
 from countryinfo import CountryInfo
 
+#api_token = 'b3557d7b-28a3-4743-8717-485445b16830'
+#api_call = f'?acess_token={api_token}'
 
 def country_map(dataframe):
 
-    m = folium.Map(location=[dataframe['latitude'].mean(), dataframe['longitude'].mean()], tiles="https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.png", attr='&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a>', zoom_start=4)
+    m = folium.Map(location=[dataframe['latitude'].mean(), dataframe['longitude'].mean()], tiles="https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.png?acess_token=b3557d7b-28a3-4743-8717-485445b16830", attr='&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a>', zoom_start=4)
 
     for index, line in dataframe.iterrows():
         folium.Circle(
