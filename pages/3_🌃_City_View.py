@@ -56,7 +56,7 @@ countries_options = st.sidebar.multiselect(
 
 
 
-df1 = df1.loc[df1['average_cost_for_two(USD)'].between(*price_range, inclusive=True), :]
+df1 = df1.loc[df1['average_cost_for_two(USD)'].between(*price_range, inclusive='both'), :]
 df1 = df1.loc[df1['country_name'].isin(countries_options), :]
 
 # ================================================================================================================

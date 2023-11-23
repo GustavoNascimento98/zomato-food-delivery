@@ -5,6 +5,8 @@ import numpy as np
 import inflection
 from countryinfo import CountryInfo
 import requests
+from datetime import datetime, timedelta
+import pytz
 
 import folium
 from streamlit_folium import folium_static
@@ -164,6 +166,26 @@ def map_view(dataframe, lat=0, lon=0, zoom=1):
     
     return None
 
+
+def get_time_until_next_midnight_utc():
+
+    # Get the current time in UTC
+    utc_now = datetime.utcnow()
+
+    # Calculate time until the next midnight in UTC
+    time_until_midnight_utc = (timedelta(days=1) - timedelta(hours=utc_now.hour, minutes=utc_now.minute, seconds=utc_now.second, microseconds=utc_now.microsecond))
+
+    return utc_now + time_until_midnight_utc
+
+def get_time_in_timezone(timezone, time):
+    
+    # Set the timezone
+    tz = pytz.timezone(timezone)
+
+    # Convert the time to the specified timezone
+    time_in_timezone = time.replace(tzinfo=pytz.utc).astimezone(tz)
+
+    return time_in_timezone
 
 
 

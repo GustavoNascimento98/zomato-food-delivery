@@ -3,8 +3,6 @@ import plotly.express as px
 import plotly.figure_factory as ff
 
 from streamlit_folium import folium_static
-from folium.plugins import MarkerCluster
-from countryinfo import CountryInfo
 import xyzservices.providers as xyz
 
 api_token = 'b3557d7b-28a3-4743-8717-485445b16830'
@@ -27,7 +25,7 @@ def country_map(dataframe):
 
     folium.LayerControl().add_to(m)
 
-    for index, line in dataframe.iterrows():
+    for _, line in dataframe.iterrows():
         folium.Circle(
             radius=100,
             location=(line['latitude'], line['longitude']),

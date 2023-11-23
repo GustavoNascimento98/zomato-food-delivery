@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.express as px
 import numpy as np
 import datetime
+import pytz
 import streamlit as st
 from PIL import Image
 
@@ -54,7 +55,7 @@ countries_options = st.sidebar.multiselect(
 
 
 
-df1 = df1.loc[df1['average_cost_for_two(USD)'].between(*price_range, inclusive=True), :]
+df1 = df1.loc[df1['average_cost_for_two(USD)'].between(*price_range, inclusive='both'), :]
 df1 = df1.loc[df1['country_name'].isin(countries_options), :]
 
 # ================================================================================================================
@@ -108,16 +109,19 @@ with st.expander('Exchange Rates'):
     cols = st.columns(2)
     
     with cols[0]:
-        current_time = datetime.datetime.now()
+        user_timezone = 'US/Eastern'
+        current_time = datetime.datetime.now(pytz.timezone(user_timezone))
         
-        st.write('## Current Time')
+        st.write('## Current Time ({})'.format(user_timezone))
         st.write(current_time.strftime("%a, %b %d, %Y"))
         st.write(current_time.strftime("%I:%M:%S %p"))
         
-        next_day = datetime.datetime.today() + datetime.timedelta(days=1)
+        next_midnight = utils.get_time_until_next_midnight_utc()
+        update_time = utils.get_time_in_timezone(user_timezone, next_midnight)
+        
         st.write('## Next Update')
-        st.write(next_day.strftime("%a, %b %d, %Y"))
-        st.write(current_time.strftime("00:00:01 AM"))
+        st.write(update_time.strftime("%a, %b %d, %Y"))
+        st.write(update_time.strftime("%I:%M:%S %p"))
         
         
     with cols[1]:
