@@ -147,6 +147,7 @@ wcwidth==0.2.6
 webcolors==1.13
 webencodings==0.5.1
 websocket-client==1.5.1
+xyzservices==2023.10.1
 y-py==0.5.9
 ypy-websocket==0.8.2
 zipp==3.15.0
