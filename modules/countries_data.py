@@ -5,13 +5,27 @@ import plotly.figure_factory as ff
 from streamlit_folium import folium_static
 from folium.plugins import MarkerCluster
 from countryinfo import CountryInfo
+import xyzservices.providers as xyz
 
-#api_token = 'b3557d7b-28a3-4743-8717-485445b16830'
-#api_call = f'?acess_token={api_token}'
+api_token = 'b3557d7b-28a3-4743-8717-485445b16830'
 
 def country_map(dataframe):
 
-    m = folium.Map(location=[dataframe['latitude'].mean(), dataframe['longitude'].mean()], tiles="https://tiles.stadiamaps.com/tiles/stamen_toner/{z}/{x}/{y}{r}.png?acess_token=b3557d7b-28a3-4743-8717-485445b16830", attr='&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a>', zoom_start=4)
+    m = folium.Map(location=[dataframe['latitude'].mean(), dataframe['longitude'].mean()], zoom_start=4)
+    
+    tile_provider = xyz.Stadia.StamenToner
+
+    tile_provider['url'] = tile_provider['url'] + f'?api_key={api_token}'
+
+    folium.TileLayer(
+        tiles=tile_provider.build_url(api_key=api_token),
+        attr=tile_provider.attribution,
+        name=tile_provider.name,
+        max_zoom=tile_provider.max_zoom,
+        detect_retina=True
+    ).add_to(m)
+
+    folium.LayerControl().add_to(m)
 
     for index, line in dataframe.iterrows():
         folium.Circle(
