@@ -1,48 +1,66 @@
+# Zomato Dashboard
+[![pt-br](https://img.shields.io/badge/language-pt--br-green.svg)](https://github.com/GustavoNascimento98/zomato-food-delivery/blob/main/README.md)
+[![en](https://img.shields.io/badge/language-en-red.svg)](https://github.com/GustavoNascimento98/zomato-food-delivery/blob/main/README-en.md)
+
+![](images/zomato-banner.png)
+
+**Tabela de Conteúdos**
+
+- [1. Problema de negócio](#1-problema-de-negócio)
+- [2. Premissas assumidas para a análise](#2-premissas-assumidas-para-a-análise)
+- [3. Estratégia da solução.](#3-estratégia-da-solução)
+- [4. Top 3 Insights de dados](#4-top-3-insights-de-dados)
+- [5. Produto final do projeto](#5-produto-final-do-projeto)
+- [6. Conclusão](#6-conclusão)
+- [7. Próximos passos](#7-próximos-passos)
+
+</br>
+
 # 1. Problema de negócio
 
-A Fome Zero é uma empresa de tecnologia que criou um aplicativo que permite que permite ao usuários consultar informações sobre os restaurantes locais cadastrados.
+A Zomato é uma empresa de tecnologia que criou um aplicativo que permite que permite ao usuários consultar informações sobre os restaurantes locais cadastrados.
 
-Essa empresa possui um modelo de negócios de marketplace de restaurantes. Ou seja, seu core business é facilitar o encontro e negociações de clientes e restaurantes. Os restaurantes fazem o cadastro dentro da plataforma da Fome Zero, que disponibiliza informações como endereço, tipo de culinária servida, se possui reservas, se faz entregas e também uma nota de avaliação dos serviços e produtos do restaurante, dentre outras informações.
+Essa empresa possui um modelo de negócios de marketplace de restaurantes. Ou seja, seu core business é facilitar o encontro e negociações de clientes e restaurantes. Os restaurantes fazem o cadastro dentro da plataforma da Zomato, que disponibiliza informações como endereço, tipo de culinária servida, se possui reservas, se faz entregas e também uma nota de avaliação dos serviços e produtos do restaurante, dentre outras informações.
 
-Você foi contratado com um Cientista de Dados para criar soluções de dados para entrega, mas antes de treinar algoritmos, a necessidade da empresa é ter os principais KPI’s estratégicos organizados em uma única ferramenta, para que possa consultar e conseguir tomar decisões simples, porém importantes. 
+Como Cientista de Dados me foi pedido para criar uma solução para a empresa onde fosse possível ter os principais KPI’s estratégicos organizados em uma única local, para que possa consultar e conseguir tomar decisões simples, porém importantes. 
 
-Inicialmente foi passado a você um dataset com as seguintes variáveis:
+Inicialmente me foi passado um dataset com as seguintes variáveis:
 
 <details>
-<summary><b> Dataset </b></summary>
+<summary><strong> Dataset </strong></summary>
+</br>
 
+| Coluna               | Descrição                                                                                       |
+| :------------------- | :---------------------------------------------------------------------------------------------- |
+| Restaurant ID        | ID do restaurante                                                                               |
+| Restaurant Name      | Nome do Restaurante                                                                             |
+| Country Code         | Código do País                                                                                  |
+| City                 | Nome da Cidade onde o restaurante está                                                          |
+| Address              | Endereço do restaurante                                                                         |
+| Locality             | Localização e pontos de referência do restaurante                                               |
+| Locality Verbose     | Localização e pontos de referência do restaurante (Mais informações)                            |
+| Longitude            | Ponto geográfico de Longitude do Restaurante                                                    |
+| Latitude             | Ponto geográfico de Latitude do Restaurante                                                     |
+| Cuisines             | Tipos de Culinária servidos no restaurante                                                      |
+| Average Cost for two | Preço Médio de um prato para duas pessoas no restaurante                                        |
+| Currency             | Moeda do país                                                                                   |
+| Has Table booking    | Se o restaurante possui serviços de reserva; </br>1 - Sim; 0 - Não                              |
+| Has Online delivery  | Se o restaurante possui serviços de pedido on-line; </br>1 - Sim; 0 - Não                       |
+| Is delivering now    | Se o restaurante faz entregas; 1 - Sim; 0 - Não                                                 |
+| Switch to order menu | -                                                                                               |
+| Price range          | Variação de preços do restaurante; </br>1 a 4 - Quanto maior o valor, mais caro serão os pratos |
+| Aggregate rating     | Nota média do restaurante                                                                       |
+| Rating color         | Código Hexadecimal da cor do restaurante com base em sua nota média                             |
+| Rating text          | Categoria em que o restaurante está com base em sua nota média                                  |
+| Votes                | Quantidade de avaliações que o restaurante já recebeu                                           |
 
-| Column | Description |
-| :----- | :---------- |
-| Restaurant ID | ID do restaurante |
-| Restaurant Name | Nome do Restaurante |
-| Country Code | Código do País |
-| City | Nome da Cidade onde o restaurante está |
-| Address | Endereço do restaurante |
-| Locality | Localização e pontos de referência do restaurante |
-| Locality Verbose | Localização e pontos de referência do restaurante (Mais informações) |
-| Longitude | Ponto geográfico de Longitude do Restaurante |
-| Latitude | Ponto geográfico de Latitude do Restaurante |
-| Cuisines | Tipos de Culinária servidos no restaurante |
-| Average Cost for two | Preço Médio de um prato para duas pessoas no restaurante |
-| Currency | Moeda do país |
-| Has Table booking | Se o restaurante possui serviços de reserva; 1 - Sim; 0 - Não |
-| Has Online delivery | Se o restaurante possui serviços de pedido on-line; 1 - Sim; 0 - Não |
-| Is delivering now | Se o restaurante faz entregas; 1 - Sim; 0 - Não |
-| Switch to order menu | - |
-| Price range | Variação de preços do restaurante; 1 a 4 - Quanto maior o valor, mais caro serão os pratos |
-| Aggregate rating | Nota média do restaurante |
-| Rating color | Código Hexadecimal da cor do restaurante com base em sua nota média |
-| Rating text | Categoria em que o restaurante está com base em sua nota média |
-| Votes | Quantidade de avaliações que o restaurante já recebeu |
-
-</details>
+</details></br>
 
 
 Com esses dados devemos responder as seguinte questões de negócios:
 
 <details>
-<summary><b> Geral </b></summary>
+<summary><strong> Geral </b></summary>
 
 1. Quantos restaurantes únicos estão registrados?
 
@@ -58,11 +76,11 @@ Com esses dados devemos responder as seguinte questões de negócios:
 
 5. Qual o total de tipos de culinária registrados?
 
-</details>
+</details></br>
 
 
 <details>
-<summary><b> País </b></summary>
+<summary><strong> País </strong></summary>
 
 1. Qual o nome do país que possui mais cidades registradas?
 
@@ -96,11 +114,11 @@ Com esses dados devemos responder as seguinte questões de negócios:
 
 11. Qual a média de preço de um prato para dois por país?
 
-</details>
+</details></br>
 
 
 <details>
-<summary><b> Cidade </b></summary>
+<summary><strong> Cidade </strong></summary>
 
 1. Qual o nome da cidade que possui mais restaurantes registrados?
 
@@ -125,7 +143,7 @@ Com esses dados devemos responder as seguinte questões de negócios:
 
 8. Qual o nome da cidade que possui a maior quantidade de restaurantes que aceitam pedidos online?
 
-</details>
+</details></br>
 
 
 # 2. Premissas assumidas para a análise
